@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BookList>
+<book ID="0001">
+<name>BOOKNAME</name>
+<author>AUTHORHERE</author>
+</book>
+</BookList>

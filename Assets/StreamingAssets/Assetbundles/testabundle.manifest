@@ -1,0 +1,33 @@
+ManifestFileVersion: 0
+CRC: 2170647661
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 2e0c776407f1008d803587c01fe0d33e
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 8551f7ef03cc725ce1d2663acd07950b
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 135
+  Script: {instanceID: 0}
+Assets:
+- Assets/Test/ResourcesBundle/Cube.prefab
+- Assets/Test/ResourcesBundle/Sphere.prefab
+Dependencies: []

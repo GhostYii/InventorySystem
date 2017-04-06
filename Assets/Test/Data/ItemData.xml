@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ItemDataList>
+  <Item ID="0001">
+    <name>WeaponItem</name>
+    <itemType>2</itemType>
+    <equipmentType>0</equipmentType>
+    <repeatable>false</repeatable>
+    <maxSum>1</maxSum>
+  </Item>
+</ItemDataList>

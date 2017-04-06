@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 69a408628ef57e74f9ca80712ac4d9e8
+timeCreated: 1461494980
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - uiCamera: {instanceID: 0}
+  - particle: {fileID: 174890, guid: a81995d2f62540d4c83098d3d4436e19, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

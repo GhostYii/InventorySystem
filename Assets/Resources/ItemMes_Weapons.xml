@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--DO NOT CHANGE THE ORDER OF THE CHILD ITEM-->
+<ItemMes>
+  <Item ID ="0001" type ="equipment">
+    <repeatable>false</repeatable>
+    <levle>green</levle>
+    <equipmentType>head</equipmentType>
+    <maxSum>1</maxSum>
+    <picName>handWeapon_IronShield</picName>
+  </Item>
+  <Item ID ="0002" type ="equipment">
+    <repeatable>false</repeatable>
+    <levle>blue</levle>
+    <equipmentType>lefthand</equipmentType>
+    <maxSum>1</maxSum>
+    <picName>handWeapon_IronSword</picName>
+  </Item>
+  <Item ID ="0003" type ="equipment">
+    <repeatable>false</repeatable>
+    <levle>pink</levle>
+    <equipmentType>righthand</equipmentType>
+    <maxSum>1</maxSum>
+    <picName>handWeapon_GoldSword</picName>
+  </Item>
+</ItemMes>

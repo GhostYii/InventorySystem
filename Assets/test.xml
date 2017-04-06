@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<inventory_items>
+  <item dataID="0000" id="0001">
+    <itemType>Equipment</itemType>
+    <picName>handWeapon_IronShield</picName>
+    <repeatable>False</repeatable>
+    <level>Green</level>
+    <equipmentType>Head</equipmentType>
+  </item>
+  <item dataID="0001" id="1003">
+    <itemType>Item</itemType>
+    <picName>item_scarf</picName>
+    <repeatable>False</repeatable>
+  </item>
+  <item dataID="0002" id="0002">
+    <itemType>Equipment</itemType>
+    <picName>handWeapon_IronSword</picName>
+    <repeatable>False</repeatable>
+    <level>Blue</level>
+    <equipmentType>LeftHand</equipmentType>
+  </item>
+  <item dataID="0003" id="1002">
+    <itemType>Item</itemType>
+    <picName>item_emerald</picName>
+    <repeatable>True</repeatable>
+    <num>1</num>
+    <maxSum>10</maxSum>
+  </item>
+  <item dataID="0004" id="0003">
+    <itemType>Equipment</itemType>
+    <picName>handWeapon_GoldSword</picName>
+    <repeatable>False</repeatable>
+    <level>Pink</level>
+    <equipmentType>RightHand</equipmentType>
+  </item>
+  <item dataID="0005" id="1001">
+    <itemType>Item</itemType>
+    <picName>item_pendant</picName>
+    <repeatable>False</repeatable>
+  </item>
+  <item dataID="0006" id="1004">
+    <itemType>Item</itemType>
+    <picName>item_laotan</picName>
+    <repeatable>True</repeatable>
+    <num>1</num>
+    <maxSum>20</maxSum>
+  </item>
+  <item dataID="0007" id="1004">
+    <itemType>Item</itemType>
+    <picName>item_laotan</picName>
+    <repeatable>True</repeatable>
+    <num>15</num>
+    <maxSum>20</maxSum>
+  </item>
+</inventory_items>

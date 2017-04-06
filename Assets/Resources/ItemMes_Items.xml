@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--DO NOT CHANGE THE ORDER OF THE CHILD ITEM-->
+<ItemMes>
+  <Item ID="1001" type="item">
+    <repeatable>false</repeatable>
+    <levle>none</levle>
+    <equipmentType>none</equipmentType>
+    <maxSum>1</maxSum>
+    <picName>item_pendant</picName>
+  </Item>
+  <Item ID="1002" type="item">
+    <repeatable>true</repeatable>
+    <levle>none</levle>
+    <equipmentType>none</equipmentType>
+    <maxSum>10</maxSum>
+    <picName>item_emerald</picName>
+  </Item>
+  <Item ID="1003" type="item">
+    <repeatable>false</repeatable>
+    <levle>none</levle>
+    <equipmentType>none</equipmentType>
+    <maxSum>1</maxSum>
+    <picName>item_scarf</picName>
+  </Item>
+  <Item ID="1004" type="item">
+    <repeatable>true</repeatable>
+    <levle>none</levle>
+    <equipmentType>none</equipmentType>
+    <maxSum>20</maxSum>
+    <picName>item_laotan</picName>
+  </Item>
+</ItemMes>

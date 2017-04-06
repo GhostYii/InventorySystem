@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--DO NOT CHANGE THE ORDER OF THE CHILD ITEM-->
+<TooltipData>
+  <tooltip ID="0001">
+    <name>普通的 铁甲</name>
+    <introduction>一个非常简易的铁盔甲，有多处生锈的痕迹
+能够稍微保护一下你的身体。
+    </introduction>
+    <effect>防御力+3</effect>
+  </tooltip>
+  <tooltip ID="0002">
+    <name>普通的 铁剑</name>
+    <introduction>墨城一个不知名的小作坊里打造的一把简易铁剑
+打造这把剑的铁匠也许不太靠谱
+    </introduction>
+    <effect>攻击力+4
+有一定几率剑刃断裂
+    </effect>
+  </tooltip>
+  <tooltip ID="0003">
+    <name>闪闪发光的 金剑</name>
+    <introduction>一把收藏价值非常高的剑，剑刃闪闪发光，看上去非常耀眼
+也许能卖个好价钱，但是谁会买呢？
+    </introduction>
+    <effect>攻击力+4
+使用次数越多价值越小
+    </effect>
+  </tooltip>
+</TooltipData>

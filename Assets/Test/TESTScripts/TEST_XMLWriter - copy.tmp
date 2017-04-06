@@ -1,0 +1,485 @@
+﻿using System;
+using System.Xml;
+using System.Collections.Generic;
+using System.IO;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class TEST_XMLWriter : MonoBehaviour
+{
+    [Header("Input Field Ref")]
+    public InputField fileNameField;
+    public InputField rootElementField;
+    public InputField nodeNameField;
+    public InputField attributeNameField;
+    public InputField attributeValueField;
+    public InputField contentNameField;
+    public InputField contentField;
+
+    [Header("Preview")]
+    public Text preview;
+
+    [Header("Message Box Obj")]
+    public RectTransform messageBoxObj;
+    public Text mesBoxTitle;
+    public Text mesBoxText;
+
+    private string fileName;
+    private string rootElementName;
+    private string nodeName;
+    private string attributeName;
+    private string attributeValue;
+    private string contentName;
+    private string contentText;
+
+    //private XmlDocument xmlDoc = new XmlDocument();
+
+    //[SerializeField]
+    private SingleNode currentNode = new SingleNode();
+    [SerializeField]
+    private Node currentEditNode = new Node();
+    private List<Node> nodes = new List<Node>();
+    private List<Node> previewNodes = new List<Node>();
+
+    void Start()
+    {
+        CheckFile();
+        currentNode = new SingleNode();
+        //currentEditNode = new Node(currentNode);
+    }
+
+    //void Update()
+    //{
+    //    //currentNode.name = nodeName;
+    //    //currentNode.attribute.Set(attributeName, attributeValue);
+    //    //currentNode.content.Set(contentName, contentText);
+    //    //if(previewNodes.Count > 0)
+    //    //{
+    //    //    currentEditNode.name = previewNodes[previewNodes.Count - 1].name;
+    //    //    currentEditNode.attributes = previewNodes[previewNodes.Count - 1].attributes;
+    //    //    currentEditNode.contents = previewNodes[previewNodes.Count - 1].contents;
+    //    //}
+
+    //    Preview();
+    //}
+
+    public void Save()
+    {
+        if (HasError())
+        {
+            ShowMessageBox("ERROR", string.Format("<color=#ff00ffff>{0}</color> can not be empty!", GetFirstErrorMessage()));
+            return;
+        }
+
+        if (!nodes.Contains(new Node(nodeName, attributeName, attributeValue, contentName, contentText)))
+            nodes.Add(new Node(nodeName, attributeName, attributeValue, contentName, contentText));
+
+        if (!File.Exists((Application.dataPath + "/Test/XML File Save/" + fileName + ".xml")))
+        {
+            using (FileStream fs = File.Create(Application.dataPath + "/Test/XML File Save/" + fileName + ".xml"))
+            {
+                fs.Close();
+            }
+        }
+        else
+        {
+            File.Delete(Application.dataPath + "/Test/XML File Save/" + fileName + ".xml");
+            using (FileStream fs = File.Create(Application.dataPath + "/Test/XML File Save/" + fileName + ".xml"))
+            {
+                fs.Close();
+            }
+        }
+
+        XmlWriter xmlWriter = XmlWriter.Create(Application.dataPath + "/Test/XML File Save/" + fileName + ".xml");
+
+        xmlWriter.WriteStartDocument();
+        xmlWriter.WriteWhitespace(System.Environment.NewLine);
+        xmlWriter.WriteStartElement(rootElementName);
+        xmlWriter.WriteWhitespace(System.Environment.NewLine);
+        foreach (Node item in nodes)
+        {
+            xmlWriter.WriteStartElement(item.name);
+
+            foreach (var attribute_tmp in item.attributes)
+            {
+                xmlWriter.WriteAttributeString(attribute_tmp.key, attribute_tmp.value);
+                xmlWriter.WriteWhitespace(System.Environment.NewLine);
+            }
+
+            foreach (var content_tmp in item.contents)
+            {
+                xmlWriter.WriteElementString(content_tmp.key, content_tmp.value);
+                xmlWriter.WriteWhitespace(System.Environment.NewLine);
+            }
+
+            xmlWriter.WriteEndElement();
+            xmlWriter.WriteWhitespace(System.Environment.NewLine);
+        }
+        xmlWriter.WriteEndElement();
+        xmlWriter.WriteEndDocument();
+
+        xmlWriter.Flush();
+        xmlWriter.Close();
+
+        ShowMessageBox("TIP", "Completed!");
+    }
+
+    public void ApplyRootElement()
+    { }
+
+    public void Clear()
+    { }
+
+    public void ClearAllText()
+    { }
+
+    public void AddAttribute()
+    {
+        bool hasError = string.IsNullOrEmpty(fileNameField.text)
+                     || string.IsNullOrEmpty(rootElementField.text)
+                     || string.IsNullOrEmpty(nodeNameField.text)
+                     || string.IsNullOrEmpty(attributeNameField.text)
+                     || string.IsNullOrEmpty(attributeValueField.text);
+
+        if (hasError)
+        {
+            ShowMessageBox("ERROR", string.Format("<color=#ff00ffff>{0}</color> can not be empty!", GetFirstErrorMessage(true)));
+            return;
+        }
+
+        currentEditNode.attributes.Add(KeyAndValue.Get(attributeName, attributeValue));
+        
+        currentNode.attribute.Clear();
+        currentNode.content.Clear();
+        
+        attributeName = string.Empty;
+        attributeValue = string.Empty;
+        attributeNameField.text = string.Empty;
+        attributeValueField.text = string.Empty;
+    }
+
+    public void AddContent()
+    {
+        if (HasError())
+        {
+            ShowMessageBox("ERROR", string.Format("<color=#ff00ffff>{0}</color> can not be empty!", GetFirstErrorMessage()));
+            return;
+        }
+
+        currentEditNode.contents.Add(KeyAndValue.Get(contentName, contentText));
+        //contents.Add(contentName, contentText);
+        contentName = string.Empty;
+        contentText = string.Empty;
+        contentNameField.text = string.Empty;
+        contentField.text = string.Empty;
+    }
+
+    public void AddNode()
+    {
+        if (HasError())
+        {
+            ShowMessageBox("ERROR", string.Format("<color=#ff00ffff>{0}</color> can not be empty!", GetFirstErrorMessage()));
+            return;
+        }
+
+        //Node newNode = new Node(nodeName, attributeName, attributeValue, contentName, contentText);
+        nodes.Add(currentEditNode);
+        //previewNodes.Add(newNode);
+
+        contentName = string.Empty;
+        contentText = string.Empty;
+        contentNameField.text = string.Empty;
+        contentField.text = string.Empty;
+
+    }
+
+    public void Preview()
+    {
+        if (string.IsNullOrEmpty(fileName) || string.IsNullOrEmpty(rootElementName))
+            return;
+
+        XmlWriter xmlWriter = XmlWriter.Create(Application.dataPath + "/Test/XML File Save/Temp/" + fileName + ".tmp");
+
+        xmlWriter.WriteStartDocument();
+        xmlWriter.WriteWhitespace(System.Environment.NewLine);
+        xmlWriter.WriteStartElement(rootElementName);
+        xmlWriter.WriteWhitespace(System.Environment.NewLine);
+
+        foreach (Node item in previewNodes)
+        {
+            xmlWriter.WriteStartElement(item.name);
+            foreach (var attribute_tmp in item.attributes)
+            {
+                xmlWriter.WriteAttributeString(attribute_tmp.key, attribute_tmp.value);
+                xmlWriter.WriteWhitespace(System.Environment.NewLine);
+            }
+
+            foreach (var content_tmp in item.contents)
+            {
+                xmlWriter.WriteElementString(content_tmp.key, content_tmp.value);
+                xmlWriter.WriteWhitespace(System.Environment.NewLine);
+            }
+
+            xmlWriter.WriteEndElement();
+            xmlWriter.WriteWhitespace(System.Environment.NewLine);
+        }
+
+        if(!string.IsNullOrEmpty(currentEditNode.name))
+        {
+            xmlWriter.WriteStartElement(currentEditNode.name);
+            foreach (var attribute_tmp in currentEditNode.attributes)
+            {
+                //print(attribute_tmp.Key + "  "+attribute_tmp.Value);
+                xmlWriter.WriteAttributeString(attribute_tmp.key, attribute_tmp.value);
+                xmlWriter.WriteWhitespace(System.Environment.NewLine);
+            }
+
+            foreach (var content_tmp in currentEditNode.contents)
+            {
+               // xmlWriter.WriteElementString(content_tmp.Key, content_tmp.Value);
+                xmlWriter.WriteWhitespace(System.Environment.NewLine);
+            }
+
+            xmlWriter.WriteEndElement();
+            xmlWriter.WriteWhitespace(System.Environment.NewLine);
+        }
+
+        /*
+        if (!string.IsNullOrEmpty(nodeName))
+        {
+            xmlWriter.WriteStartElement(nodeName);
+
+            if (!string.IsNullOrEmpty(attributeName))
+            {
+                xmlWriter.WriteAttributeString(attributeName, attributeValue);
+                xmlWriter.WriteWhitespace(System.Environment.NewLine);
+
+                if (!string.IsNullOrEmpty(contentName))
+                {
+                    xmlWriter.WriteElementString(contentName, contentText);
+                    xmlWriter.WriteWhitespace(System.Environment.NewLine);
+                }
+            }
+        }*/
+
+        xmlWriter.WriteEndElement();
+        xmlWriter.WriteEndDocument();
+
+        xmlWriter.Flush();
+        xmlWriter.Close();
+
+        if (File.Exists(Application.dataPath + "/Test/XML File Save/Temp/" + fileName + ".tmp"))
+            preview.text = File.ReadAllText(Application.dataPath + "/Test/XML File Save/Temp/" + fileName + ".tmp");
+    }
+
+    #region SetSomeValue
+    public void SetFileName()
+    {
+        fileName = fileNameField.text;
+    }
+
+    public void SetRootElementName()
+    {
+        rootElementName = rootElementField.text;        
+    }
+
+    public void SetNodeName()
+    {
+        nodeName = nodeNameField.text;
+        currentEditNode.name = nodeNameField.text;
+    }
+
+    public void SetAttributeName()
+    {
+        attributeName = attributeNameField.text;
+    }
+
+    public void SetAttributeValue()
+    {
+        attributeValue = attributeValueField.text;
+    }
+
+    public void SetNodeContentName()
+    {
+        contentName = contentNameField.text;
+    }
+
+    public void SetNodeContent()
+    {
+        contentText = contentField.text;
+    }
+    #endregion
+
+    void CheckFile()
+    {
+        if (!Directory.Exists(Application.dataPath + "/Test"))
+            Directory.CreateDirectory(Application.dataPath + "/Test");
+
+        if (!Directory.Exists(Application.dataPath + "/Test/XML File Save/Temp"))
+            Directory.CreateDirectory(Application.dataPath + "/Test/XML File Save/Temp");
+
+        if (!Directory.Exists(Application.dataPath + "/Test/XML File Save"))
+            Directory.CreateDirectory(Application.dataPath + "/Test/XML File Save");
+    }
+
+    bool HasError(bool checkAttribute = false)
+    {
+        if (checkAttribute)
+            return string.IsNullOrEmpty(fileNameField.text)
+                || string.IsNullOrEmpty(rootElementField.text)
+                || string.IsNullOrEmpty(nodeNameField.text)
+                || string.IsNullOrEmpty(attributeNameField.text)
+                || string.IsNullOrEmpty(attributeValueField.text)
+                || string.IsNullOrEmpty(contentNameField.text)
+                || string.IsNullOrEmpty(contentField.text);
+        else
+            return string.IsNullOrEmpty(fileNameField.text)
+                || string.IsNullOrEmpty(rootElementField.text)
+                || string.IsNullOrEmpty(nodeNameField.text)
+                || string.IsNullOrEmpty(contentNameField.text)
+                || string.IsNullOrEmpty(contentField.text);
+    }
+
+    string GetFirstErrorMessage(bool checkAttribute = false)
+    {
+        if (checkAttribute)
+        {
+            if (string.IsNullOrEmpty(fileNameField.text))
+                return "File Name";
+            else if (string.IsNullOrEmpty(rootElementField.text))
+                return "Root Element";
+            else if (string.IsNullOrEmpty(nodeNameField.text))
+                return "Node Name";
+            else if (string.IsNullOrEmpty(attributeNameField.text))
+                return "Attribute Name";
+            else if (string.IsNullOrEmpty(attributeValueField.text))
+                return "Attribute Value";
+            else if (string.IsNullOrEmpty(contentNameField.text))
+                return "Content Name";
+            else if (string.IsNullOrEmpty(contentField.text))
+                return "Content";
+            else
+                return string.Empty;
+        }
+        else
+        {
+            if (string.IsNullOrEmpty(fileNameField.text))
+                return "File Name";
+            else if (string.IsNullOrEmpty(rootElementField.text))
+                return "Root Element";
+            else if (string.IsNullOrEmpty(nodeNameField.text))
+                return "Node Name";
+            else if (string.IsNullOrEmpty(contentNameField.text))
+                return "Content Name";
+            else if (string.IsNullOrEmpty(contentField.text))
+                return "Content";
+            else
+                return string.Empty;
+        }
+    }
+
+    void ShowMessageBox(string title, string message)
+    {
+        if (!messageBoxObj || !mesBoxText || !mesBoxTitle)
+            return;
+
+        mesBoxTitle.text = title;
+        mesBoxText.text = message;
+        messageBoxObj.gameObject.SetActive(true);
+    }
+
+    public void HideError()
+    {
+        messageBoxObj.gameObject.SetActive(false);
+    }
+
+    [Serializable]
+    public class Node
+    {
+        public string name;
+
+        //public Dictionary<string, string> attributes;
+        //public Dictionary<string, string> contents;
+        public List<KeyAndValue> attributes;
+        public List<KeyAndValue> contents;
+
+        public Node()
+        { 
+            name = string.Empty;
+            //attributes = new Dictionary<string, string>();
+            //contents = new Dictionary<string, string>();
+            attributes = new List<KeyAndValue>();
+            contents = new List<KeyAndValue>();
+        }
+
+        public Node(string name,string attribute,string attributeValue,string content,string contentText)
+        {
+            this.name = name;
+            //attributes = new Dictionary<string, string>();
+            //contents = new Dictionary<string, string>();
+            attributes = new List<KeyAndValue>();
+            contents = new List<KeyAndValue>();
+            //attributes.Add(attribute, attributeValue);
+            //contents.Add(content, contentText);
+            attributes.Add(KeyAndValue.Get(attribute, attributeValue));
+            contents.Add(KeyAndValue.Get(content, contentText));
+        }
+
+        public Node(SingleNode node)
+        {
+            this.name = node.name;
+            //attributes = new Dictionary<string, string>();
+            //contents = new Dictionary<string, string>();
+            attributes = new List<KeyAndValue>();
+            contents = new List<KeyAndValue>();
+            //this.attributes.Add(node.attribute.key, node.attribute.value);
+            //this.contents.Add(node.content.key, node.content.value);
+            attributes.Add(KeyAndValue.Get(node.attribute.key, node.attribute.value));
+            contents.Add(KeyAndValue.Get(node.content.key, node.content.value));
+        }
+
+    }
+
+    [Serializable]
+    public class SingleNode
+    {
+        public string name = string.Empty;
+        public KeyAndValue attribute;
+        public KeyAndValue content;
+
+        public SingleNode()
+        {
+            name = string.Empty;
+            attribute.Clear();
+            content.Clear();
+        }
+    }
+
+    [Serializable]
+    public struct KeyAndValue
+    {
+        public string key;
+        public string value;
+
+        public void Set(string key,string value)
+        {
+            this.key = key;
+            this.value = value;
+        }
+
+        public void Clear()
+        {
+            key = string.Empty;
+            value = string.Empty;
+        }
+
+        public static KeyAndValue Get(string key,string value)
+        {
+            KeyAndValue item = new KeyAndValue();
+            item.Set(key, value);
+            return item;
+        }
+    }
+    
+
+}

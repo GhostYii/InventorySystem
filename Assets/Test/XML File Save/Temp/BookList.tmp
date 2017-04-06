@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+<book ISBN="98215435454432">
+<name>21天放弃Java</name>
+</book>
+<book>
+<name>如何快速挂科</name>
+<author>罗杰</author>
+</book>
+</Root>

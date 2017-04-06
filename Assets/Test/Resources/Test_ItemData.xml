@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Do Not Load this !!-->
+<Root>
+  <ItemData ID="0001">
+    <name>WeaponA</name>
+    <effect>Attack Power + 1</effect>
+  </ItemData>
+  <ItemData ID="0002">
+    <name>WeaponB</name>
+    <effect>Attack Power + 2</effect>
+  </ItemData>
+  <ItemData ID="0003">
+    <name>WeaponC</name>
+    <effect>Attack Power +3</effect>
+  </ItemData>
+  <ItemData ID="0004">
+    <name>Sword</name>
+    <effect>Skill:LiuYun Swordsmanship</effect>
+  </ItemData>
+</Root>

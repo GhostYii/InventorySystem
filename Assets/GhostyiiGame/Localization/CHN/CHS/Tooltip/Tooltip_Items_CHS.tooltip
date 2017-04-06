@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--DO NOT CHANGE THE ORDER OF THE CHILD ITEM-->
+<TooltipData>
+  <tooltip ID="1001">
+    <name>石头挂坠</name>
+    <introduction>使用石头制成的挂坠，看起来好像会发光。
+笑话，石头怎么可能发光呢！
+    </introduction>
+    <effect>合成一个奇怪的盾牌必备材料。</effect>
+  </tooltip>
+  <tootip ID="1002">
+    <name>绿宝石</name>
+    <introduction>从地底下挖到的绿宝石，一般埋藏于地底下特定区域。
+比钻石更加稀有，但是比钻石更易发现。
+    </introduction>
+    <effect>可以在村庄中当做交易货币使用
+一个绿宝石相当于一个随机数钱币
+    </effect>
+  </tootip>
+  <tooltip ID="1003">
+    <name>蓝色毛巾</name>
+    <introduction>一块颜色诡异的毛巾，
+我不清楚这块毛巾有什么用，
+你可以试试使用它。
+    </introduction>
+    <effect>效果在使用之前未知</effect>
+  </tooltip>
+  <tooltip ID="1004">
+    <name>老坛</name>
+    <introduction>一般来说，老坛里面都是酸菜
+但是我不知道这个坛子里会是什么东西。
+    </introduction>
+    <effect>也许里面真的是酸菜</effect>
+  </tooltip>
+</TooltipData>
