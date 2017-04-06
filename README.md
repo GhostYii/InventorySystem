@@ -67,10 +67,10 @@
 ### 问题
 右键菜单可以自定义，但是实现方法不好，等一个有缘人重写。
 
-![image](https://github.com/GhostYii/InventorySystem/tree/master/Readme/Preview.png)
+![image](http://github.com/GhostYii/InventorySystem/raw/master/Readme/Preview.png)
 
-![image](https://github.com/GhostYii/InventorySystem/tree/master/Readme/tooltip.png)
+![image](http://github.com/GhostYii/InventorySystem/raw/master/Readme/tooltip.png)
 
-![image](https://github.com/GhostYii/InventorySystem/tree/master/Readme/drag.png)
+![image](http://github.com/GhostYii/InventorySystem/raw/master/Readme/drag.png)
 
-![image](https://github.com/GhostYii/InventorySystem/tree/master/Readme/rightclick0.png)  ![](https://github.com/GhostYii/InventorySystem/tree/master/Readme/rightclick1.png)
+![image](http://github.com/GhostYii/InventorySystem/raw/master/Readme/rightclick0.png)  ![image](http://github.com/GhostYii/InventorySystem/raw/master/Readme/rightclick1.png)
